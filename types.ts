@@ -19,3 +19,8 @@ export interface ReadingPost {
   image: string;
   author: string;
 }
+
+export interface TypePages {
+  title: string;
+  slug: string;
+}
