@@ -1,4 +1,5 @@
 "use client";
+
 import {
   BookOpenText,
   Home,
@@ -23,11 +24,10 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { Button } from "./ui/button";
-import { Github, Linkedin, Logo, Twitter } from "./icons";
+import { Button } from "@/components/ui/button";
+import { Github, Linkedin, Logo, TwitterIcon } from "./icons";
 import { SidebarClose } from "./sidebar_close";
 import { useIsMobile } from "@/hooks/use-mobile";
-import Image from "next/image";
 
 // Menu items.
 const items = [
@@ -75,14 +75,14 @@ export function SidebarApp() {
         </div>
         {isMobile && <SidebarClose />}
       </SidebarHeader>
-      <SidebarContent className="item-center">
+      <SidebarContent className="item-center mt-5 p-4">
         <SidebarGroup>
-          <SidebarGroupLabel>Navbar</SidebarGroupLabel>
+          <SidebarGroupLabel className="my-2">Navbar</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton className="my-2" asChild>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
@@ -94,31 +94,29 @@ export function SidebarApp() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <div className="mx-auto flex flex-row items-center justify-around">
-          <Button variant="link" asChild>
-            <Link
-              target="_blank"
-              href={"https://www.linkedin.com/company/frontendweb/"}
-            >
-              <Linkedin />
-            </Link>
-          </Button>
-          <Button variant="link" asChild>
-            <Link target="_blank" href={"https://x.com/FrontendWeb3"}>
-              <Twitter />{" "}
-            </Link>
-          </Button>
-          <Button variant="link" asChild>
-            <Link
-              target="_blank"
-              href={"https://github.com/frontendweb3/open-blog"}
-            >
-              {" "}
-              <Github />{" "}
-            </Link>
-          </Button>
-        </div>
+      <SidebarFooter className="mx-auto flex flex-row items-center justify-around">
+        <Button variant="link" asChild>
+          <Link
+            target="_blank"
+            href={"https://www.linkedin.com/company/frontendweb/"}
+          >
+            <Linkedin />
+          </Link>
+        </Button>
+        <Button variant="link" asChild>
+          <Link target="_blank" href={"https://x.com/FrontendWeb3"}>
+            <TwitterIcon />{" "}
+          </Link>
+        </Button>
+        <Button variant="link" asChild>
+          <Link
+            target="_blank"
+            href={"https://github.com/frontendweb3/blogify"}
+          >
+            {" "}
+            <Github />{" "}
+          </Link>
+        </Button>
       </SidebarFooter>
     </Sidebar>
   );
