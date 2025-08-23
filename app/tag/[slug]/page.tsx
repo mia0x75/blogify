@@ -18,7 +18,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  return { title: `Articles Related to ${slug?.trim().replaceAll(" ", "-")}` };
+  const getTitle = slug?.trim().replaceAll(" ", "-");
+  return { title: getTitle };
 }
 
 export async function generateStaticParams() {
@@ -37,16 +38,16 @@ export default async function Page({
   }
   const getTag = slug.replaceAll("-", " ");
   return (
-    <div className="container py-24">
-      <div className="mb-4 flex flex-col justify-between md:mb-14 lg:mb-16">
+    <div className="py-24">
+      <div className="mb-5 flex flex-col justify-between md:mb-14 lg:mb-16">
         <Breadcrumb className="mb-5">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink
-                className="flex flex-row items-center gap-x-3 capitalize"
+                className="flex flex-row items-center gap-x-3 text-foreground capitalize"
                 href="/"
               >
-                <Home size={12} />
+                <Home size={22} />
                 Home
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -54,7 +55,7 @@ export default async function Page({
             <BreadcrumbItem>
               <BreadcrumbPage className="flex flex-row items-center gap-x-3 capitalize">
                 {" "}
-                <Tag size={12} /> {getTag}
+                <Tag size={22} /> {getTag}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
