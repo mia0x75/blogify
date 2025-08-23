@@ -1,8 +1,7 @@
 import { format } from "date-fns";
 import { ChevronLeft, FileText, Home, Lightbulb, Tag } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { GetAllPosts, GetPost, RelatedPosts } from "@/data";
+import { GetAllPosts, GetPost } from "@/data";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -27,14 +26,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const slug = (await params).slug;
-
   const post = GetPost(slug);
-
   if (!post) {
     notFound();
   }
-
-  return { title: post.title };
+  return { title: `${post.title} | Blogify` };
 }
 export default async function Page({
   params,
@@ -45,9 +41,11 @@ export default async function Page({
   const post = GetPost(slug);
 
   let GetDate = dayjs(post?.date).format("DD MMM, YYYY");
+
   if (post === undefined) {
     notFound();
   }
+
   return (
     <section className="mx-auto flex flex-col">
       <div className="container mt-24">
@@ -162,11 +160,7 @@ export default async function Page({
             aliquip cillum enim do officia minim labore pariatur nisi irure sunt
             anim ullamco.
           </p>
-          <h2>
-            {" "}
-            <a id="What_is_Lorem_Ipsum__Meaning_18"></a>What is Lorem Ipsum
-            Meaning ?
-          </h2>
+          <h2> What is Lorem Ipsum Meaning ?</h2>
           <p>
             Sint qui enim non Lorem aliquip nulla sint. Aute laborum tempor
             adipisicing officia magna fugiat sint cupidatat. Enim Lorem officia
@@ -197,10 +191,7 @@ export default async function Page({
             nostrud ullamco occaecat nostrud sunt aliquip Lorem fugiat nisi anim
             et sunt dolor.
           </p>
-          <h2>
-            {" "}
-            <a id="Voluptate_tempor_28"></a>Voluptate tempor
-          </h2>
+          <h2> Voluptate tempor</h2>
           <p>
             Nisi ad aliquip minim quis cupidatat eu minim voluptate tempor
             consequat irure eu. Consectetur laboris est ut officia deserunt in
@@ -212,10 +203,7 @@ export default async function Page({
             <li>Lorem eiusmod proident</li>
             <li>Sunt sit voluptate</li>
           </ul>
-          <h2>
-            {" "}
-            <a id="Conclusion_36"></a>Conclusion
-          </h2>
+          <h2> Conclusion</h2>
           <p>
             Consectetur aliqua eu veniam consequat eu adipisicing id ullamco
             incididunt. Laboris deserunt labore nisi occaecat amet minim
