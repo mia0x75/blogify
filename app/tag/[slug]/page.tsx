@@ -19,7 +19,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const getTitle = slug?.trim().replaceAll(" ", "-");
-  return { title: getTitle };
+  return { title: `${getTitle} | Blogify` };
 }
 
 export async function generateStaticParams() {
