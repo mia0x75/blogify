@@ -20,13 +20,13 @@ export function Newsletter() {
           width={100}
           className="mx-auto mb-8"
         />
-        <CardTitle className="font-weight-700 text-3xl tracking-tight sm:text-4xl">
+        <CardTitle className="font-weight-700 text-3xl tracking-tight text-white sm:text-4xl md:text-6xl">
           Subscribe us
         </CardTitle>
-        <CardDescription className="mt-2">
-          Subscribe to our newsletter & stay updates
+        <CardDescription className="md:text-md mt-3 mb-2 text-sm text-white">
+          Subscribe to our newsletter & stay updates.
         </CardDescription>
-        <div className="mx-auto mt-7 flex w-full max-w-lg flex-col items-center gap-6 md:flex-row">
+        <div className="mx-auto mt-7 flex w-full max-w-xl flex-col items-center gap-6 md:flex-row">
           <Input
             type="email"
             className="rounded-sm bg-black p-2 text-white"
