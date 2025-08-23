@@ -19,20 +19,25 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import type { Metadata } from "next";
-const pages = [{ slug: "about" }];
+import type { TypePages } from "@/types";
 
-export function generateStaticParams() {
-  return pages;
-}
+const pages: TypePages[] = [
+  { slug: "about", title: "About us" },
+  { slug: "term-and-conditions", title: "Term And Conditions" },
+  { slug: "privacy-policy", title: "Privacy Policy" },
+];
+
+const filterBySlug = (pages: TypePages[], slug: string) =>
+  pages.find((page) => page.slug === slug);
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const slug = (await params).slug.toUpperCase();
-  const getTitle = slug?.trim().replaceAll("-", " ").toUpperCase();
-  return { title: getTitle };
+  const slug = (await params).slug;
+  const filtered = filterBySlug(pages, slug); // Usage
+  return { title: ` ${filtered?.title} | Blogify` };
 }
 export default async function Page({
   params,
@@ -40,12 +45,11 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const slug = (await params).slug;
-  const getTitle = slug?.trim().replaceAll("-", " ");
-
+  const filtered = filterBySlug(pages, slug); // Usage
   return (
     <section className="mx-auto flex flex-col">
-      <div className="container mt-20 mb-10">
-        <Breadcrumb className="mb-5 capitalize">
+      <div className="container mb-10">
+        <Breadcrumb className="mb-2 capitalize">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink
@@ -60,15 +64,15 @@ export default async function Page({
             <BreadcrumbItem>
               <BreadcrumbPage className="flex flex-row items-center gap-x-2 capitalize">
                 <NotebookText size={22} />
-                {getTitle}
+                {filtered?.title}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <div className="mx-auto my-16 flex max-w-5xl flex-col items-center gap-4 text-center">
+        <div className="mx-auto mt-16 mb-3 flex max-w-5xl flex-col items-center gap-4 text-center">
           <h1 className="text-center text-4xl leading-20 font-extrabold text-balance capitalize md:text-6xl">
             {" "}
-            {getTitle}
+            {filtered?.title}
           </h1>
         </div>
       </div>
