@@ -15,6 +15,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import dayjs from "dayjs";
+import type { Metadata } from "next";
+import Image from "next/image";
 
 export const generateStaticParams = async () =>
   GetAllPosts().map((post) => ({ slug: post.slug }));
@@ -23,7 +25,7 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const slug = (await params).slug;
 
   const post = GetPost(slug);
@@ -53,18 +55,18 @@ export default async function Page({
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink
-                className="flex flex-row items-center gap-x-3 capitalize"
+                className="flex flex-row items-center gap-x-3 text-foreground capitalize"
                 href="/"
               >
-                <Home size={12} />
+                <Home size={22} />
                 Home
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="flex items-center gap-x-2">
+              <BreadcrumbPage className="flex items-center gap-x-2 text-foreground">
                 {" "}
-                <FileText size={12} /> Blog
+                <FileText size={22} /> Blog
               </BreadcrumbPage>
             </BreadcrumbItem>
             <BreadcrumbSeparator className="hidden md:inline-flex" />
@@ -76,20 +78,19 @@ export default async function Page({
           </BreadcrumbList>
         </Breadcrumb>
         <div className="mx-auto mt-16 flex max-w-5xl flex-col items-center gap-4 text-center">
-          <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance md:text-6xl">
+          <h1 className="scroll-m-20 text-center text-4xl leading-20 font-extrabold text-balance md:text-6xl">
             {post.title}
           </h1>
-
           <h3 className="scroll-m-20 text-lg font-light tracking-tight md:text-xl">
             {post.description}
           </h3>
           <div className="flex items-center gap-3 text-sm md:text-base">
-            <Avatar className="h-8 w-8 border">
+            <Avatar className="size-5 border">
               <AvatarImage src={"/images/user.png"} />
               <AvatarFallback>{post.author}</AvatarFallback>
             </Avatar>
             <span className="font-medium">{post.author}</span>
-            <time title={post.date} className="mx-1">
+            <time title={post.date} className="">
               on {GetDate}
             </time>
             <Button variant="link" className="px-0 font-bold" asChild>
@@ -101,15 +102,17 @@ export default async function Page({
               </Link>
             </Button>
           </div>
-          <img
+          <Image
             src={post.image}
             alt="placeholder"
+            height={324}
+            width={764}
             className="mt-4 mb-8 aspect-video w-full rounded-lg border object-cover"
           />
         </div>
       </div>
       <div className="container">
-        <article className="mx-auto prose max-w-3xl px-6 dark:prose-invert">
+        <article className="mx-auto prose max-w-4xl px-6 lg:prose-xl dark:prose-invert">
           <p>
             Cupidatat voluptate deserunt non ea exercitation sit consequat
             ullamco ex nostrud elit magna. Nulla id proident labore pariatur
