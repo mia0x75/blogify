@@ -6,6 +6,7 @@ import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
+  Tag,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -27,24 +28,30 @@ export function BlogCard({ post }: { post: Post }) {
   let getDate = dayjs(post.date).format("DD MMM, YYYY");
   let slug = post.title?.toLowerCase().replaceAll(" ", "-");
   return (
-    <Card className="mx-auto max-w-xl rounded-sm bg-background p-6 shadow-md">
-      <CardContent className="space-y-4">
-        <div className="my-4 flex items-center justify-between">
-          <span className="rounded-full text-sm"> {post.category} </span>
-          <time className="text-sm text-muted-foreground" title={post.date}>
+    <Card className="mx-auto max-w-xl rounded-sm shadow-md">
+      <CardContent className="p-5">
+        <div className="mt-3 mb-4 flex items-center justify-between">
+          <Button variant={"link"} className="rounded-full px-0 text-sm">
+            {" "}
+            <Tag /> {post.category}{" "}
+          </Button>
+          <time className="text-sm font-bold" title={post.date}>
             {getDate}
           </time>
         </div>
-        <Link href={`/read/${slug}`}>
+        <Link
+          className="hover:underline hover:underline-offset-4"
+          href={`/read/${slug}`}
+        >
           <CardTitle className="text-2xl leading-tight font-semibold tracking-tight">
             {post.title}
           </CardTitle>
         </Link>
-        <CardDescription className="text-sm text-muted-foreground">
+        <CardDescription className="my-4 text-sm text-muted-foreground">
           {post.description}
         </CardDescription>
-        <div className="flex items-center gap-3 pt-4">
-          <Avatar className="h-8 w-8 border outline">
+        <div className="mt-5 flex items-center gap-3">
+          <Avatar className="size-5 border outline">
             <AvatarImage src="/images/user.png" alt={post.author} />
             <AvatarFallback>{post.author} </AvatarFallback>
           </Avatar>
