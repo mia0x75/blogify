@@ -36,23 +36,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar_state")?.value === "false";
-
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
           <SidebarProvider
             className="flex flex-col sm:flex-row"
-            defaultOpen={defaultOpen}
+            defaultOpen={false}
           >
             <SidebarApp />
             <SidebarInset>
               <SidebarButton />
-              <main className="container mx-auto max-w-6xl p-4">
-                {children}
-              </main>
+              <main className="mx-auto p-4">{children}</main>
             </SidebarInset>
           </SidebarProvider>
           <Footer />
